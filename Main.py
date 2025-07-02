@@ -7,7 +7,7 @@
 from fastapi import FastAPI, Depends
 from Extensions.Swagger import custom_openapi
 from Extensions.Settings import settings
-from Extensions.Auth import verify_jwt
+from Extensions.Auth import VerifyJwt
 
 from pydantic import BaseModel
 
@@ -16,7 +16,7 @@ app = FastAPI()
 # Override padrão OpenAPI
 app.openapi = lambda: custom_openapi(app)
 
-@app.get("/ping", dependencies=[Depends(verify_jwt)])
+@app.get("/ping", dependencies=[Depends(VerifyJwt)])
 def ping():
     return {"message": "pong"}
 

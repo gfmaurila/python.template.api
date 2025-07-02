@@ -5,7 +5,7 @@ from Extensions.Settings import settings
 
 security = HTTPBearer()
 
-def verify_jwt(credentials: HTTPAuthorizationCredentials = Depends(security)):
+def VerifyJwt(credentials: HTTPAuthorizationCredentials = Depends(security)):
 
     try:
         payload = jwt.decode(
