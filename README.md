@@ -1,154 +1,119 @@
-# 📘 Documentação Geral - Projeto Micro SaaS
+# 📘 Documentação Geral - Projeto python.template.api em Python
 
 ## 📖 Visão Geral
-O **Projeto Micro SaaS** consiste em um conjunto de APIs desenvolvidas em **.NET Core 8.0** para atender diferentes domínios de negócio. Cada API tem uma responsabilidade específica, sendo todas integradas por um **API Gateway** e utilizando **mensageria assíncrona** para comunicação eficiente.
+O **Projeto python.template.api** consiste em um conjunto de APIs desenvolvidas com **FastAPI (Python 3.11+)**, estruturadas de forma modular para atender diferentes domínios de negócio. A comunicação entre os serviços ocorre por **mensageria assíncrona** (RabbitMQ/Kafka) e integração via `.env`, com infraestrutura completa em **Docker Compose**.
+
+---
 
 ## 🏗 Arquitetura e Tecnologias Utilizadas
-O projeto adota uma arquitetura baseada em **Microservices** e **CQRS (Command Query Responsibility Segregation)**, utilizando:
 
-- **ASP.NET Core 8.0** → Framework para desenvolvimento das APIs
-- **Entity Framework Core** → ORM para interação com banco de dados relacional
-- **YARP (Reverse Proxy)** → Gerenciamento de roteamento de APIs
-- **SQL Server** → Banco de dados relacional
-- **MongoDB** → Banco de dados NoSQL
-- **Redis** → Cache distribuído para otimização de performance
-- **RabbitMQ / Kafka** → Mensageria para comunicação assíncrona
-- **Docker & Docker Compose** → Contêinerização das aplicações
-- **Swagger/OpenAPI** → Documentação interativa da API
-- **JWT (JSON Web Token)** → Autenticação e autorização
+- **FastAPI + Pydantic** → Framework moderno e performático para APIs REST
+- **Uvicorn** → ASGI server rápido e leve
+- **MongoDB** → Banco NoSQL
+- **SQL Server** → Banco relacional via Docker
+- **Redis** → Cache distribuído
+- **RabbitMQ / Kafka** → Mensageria para eventos e integração assíncrona
+- **Docker & Docker Compose** → Conteinerização da infraestrutura
+- **Swagger/OpenAPI** → Documentação automática
+- **JWT** → Autenticação baseada em token
+
+---
 
 ## 📁 Estrutura do Projeto
 
 ```bash
-📂 poc.micro-saas.netcore8
-├── 📂 Documento
-│   ├── 📄 README.md
-├── 📂 src
-│   ├── 📂 01 - API
-│   │   ├── 📂 API.Gateway
-│   │   ├── 📂 API.Template
-│   │   ├── 📂 API.Auth
-│   │   ├── 📂 API.Person
-│   │   ├── 📂 API.Customer
-│   │   ├── 📂 API.Clinic
-│   │   ├── 📂 API.HR
-│   │   ├── 📂 API.InventoryControl
-│   │   ├── 📂 API.Freelancer
-│   ├── 📂 02 - External
-│   │   ├── 📂 API.External.Email
-│   │   ├── 📂 API.External.MKT
-│   ├── 📂 03 - Core
-│   │   ├── 📂 Common.Core.08
-│   │   ├── 📂 Common.External.Auth.Net8
-│   ├── 📂 04 - Test
-│   │   ├── 📂 IntegrationTests
-│   │   │   ├── 📂 API.Exemple.Core.Tests
-│   │   ├── 📂 UnitTests
-│   │       ├── 📂 Common.Core.08.Tests
-│   │       ├── 📂 Common.External.Auth.Net8.Tests
-├── 📂 docker-compose
-│   ├── 📄 .dockerignore
-│   ├── 📄 docker-compose.yml
-│   ├── 📄 docker-compose.override.yml
-│   ├── 📄 launchSettings.json
+📂 python.template.api
+├── 📂 Common/
+│   ├── domain/
+│   │   ├── BaseEntity.py
+│   │   ├── IEntity.py
+│   │   ├── events/Event.py
+│   │   └── ValueObjects/
+│   │       ├── ValueObject.py
+│   │       ├── Email.py
+│   │       └── PhoneNumber.py
+│   └── enums/
+│       ├── EGender.py
+│       └── ENotificationType.py
+├── 📂 Extensions/
+│   └── Settings.py
+├── main.py
+├── requirements.txt
+├── Dockerfile
+├── docker-compose.yml
+├── .env
 ```
 
-## 📌 Descrição das APIs
+---
 
-### 1️⃣ **API.Gateway**
-- Atua como **interface única** entre os clientes e os microservices internos.
-- Gerencia autenticação, autorização e roteamento.
+## 📌 Descrição dos Componentes
 
-### 2️⃣ **API.Customer.Core**
-- Gerenciamento de **contas, usuários e planos de assinatura**.
-- Controle de consumo e **cobrança por excedentes**.
+### 🔐 Autenticação JWT
+- Tokens gerados e verificados via `Settings.py`
+- Proteção de rotas com dependências (`Depends(verify_jwt)`)
 
-### 3️⃣ **API.HR.Core**
-- Gestão de **funcionários, salários, promoções e benefícios**.
-- Controle de **departamentos e endereços**.
+### 🧱 Domínio
+- **ValueObjects** como `Email`, `PhoneNumber`
+- **BaseEntity** com rastreamento (`DtInsert`, `DtUpdate`, etc.)
+- **Eventos de domínio** com classe base `Event`
 
-### 4️⃣ **API.Freelancer.Core**
-- Gerenciamento de **freelancers, clientes, contratos e pagamentos**.
-- Controle de **propostas e avaliações**.
+### 📊 Infraestrutura via Docker Compose
 
-### 5️⃣ **API.Clinic.Core**
-- Gerenciamento de **clínicas, pacientes e agendamentos**.
-- Controle de **consultas médicas e históricos**.
+Serviços incluídos:
+- SQL Server (`localhost:1433`)
+- Redis (`localhost:6379`)
+- MongoDB (`localhost:27017`)
+- RabbitMQ (`localhost:15672`)
+- Kafka + UI (`localhost:9100`)
+- API Python (`localhost:8000`)
 
-### 6️⃣ **API.InventoryControl.Core**
-- Gestão de **estoque, produtos e movimentações**.
-- Controle de **pedidos de compra e fornecedores**.
+---
 
-### 7️⃣ **APIs Externas**
-- **API.External.Auth** → Autenticação de usuários
-- **API.External.Email** → Envio de e-mails transacionais
-- **API.External.MKT** → Gestão de campanhas de marketing
-
-## 🚀 Execução do Projeto
-O projeto pode ser inicializado utilizando **Docker Compose**:
+## 🚀 Executando o Projeto
 
 ```bash
-docker-compose down
-docker-compose up -d --build
-Update-Database -Context MainContext
+docker compose down
+docker compose up -d --build
 ```
 
-### 📡 Serviços Configurados
-- **SQL Server** (1433)
-- **Redis** (6379)
-- **MongoDB** (27017)
-- **RabbitMQ** (5672)
-- **Kafka** (9092)
-- **Kafka UI** (8080)
+Documentação da API:
+[http://localhost:8000/docs](http://localhost:8000/docs)
 
-## 🔍 Testes e Qualidade
-### ✅ **Testes Unitários**
-Os testes unitários são implementados utilizando **xUnit**:
+---
 
-```bash
-dotnet test
-```
+## 📦 Mensageria e Streaming
 
-### 🔄 **Testes de Integração**
-Os testes de integração utilizam **TestContainers** e **Postman/Newman** para validação:
+### RabbitMQ
+- Interface: [http://localhost:15672](http://localhost:15672)
+- Usuário: guest / Senha: guest
 
-```bash
-dotnet test --filter Category=IntegrationTests
-```
+### Kafka
+- Interface: [http://localhost:9100](http://localhost:9100)
 
-## 📚 **Banco de Dados**
-### **SQL Server**
-- **Host:** `localhost`
-- **Usuário:** `sa`
-- **Senha:** `Password!123`
+---
 
-### **MongoDB**
-- **Host:** `localhost`
-- **Database:** `clinics_db`
+## 📚 Banco de Dados
 
-## 📦 **Mensageria e Streaming**
-### **RabbitMQ**
-- **Acesso:** [http://localhost:15672](http://localhost:15672)
-- **Usuário:** guest / **Senha:** guest
+### SQL Server
+- Host: `localhost`
+- Usuário: `sa`
+- Senha: `@Poc2Minimal@Api`
 
-### **Kafka**
-- **Acesso:** [http://localhost:9100](http://localhost:9100)
+### MongoDB
+- Host: `localhost`
+- Database: `API_Exemple`
 
-## 📋 **Comandos Importantes**
+---
 
-```bash
-Add-Migration InitialCreate -Context AppDbContext
-Update-Database -Context AppDbContext
-```
+## 🧪 Testes
+Você pode utilizar **pytest** para testes unitários e de integração no projeto Python.
 
-## 🧑‍💻 **Autores**
+---
+
+## 👨‍💻 Autor
 
 - **Guilherme Figueiras Maurila**
 
-
-## 📫 Como me encontrar
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCjy19AugQHIhyE0Nv558jcQ)
-[![Linkedin Badge](https://img.shields.io/badge/-Guilherme_Figueiras_Maurila-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/guilherme-maurila)](https://www.linkedin.com/in/guilherme-maurila)
-[![Gmail Badge](https://img.shields.io/badge/-gfmaurila@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:gfmaurila@gmail.com)](mailto:gfmaurila@gmail.com)
-
-
+[![LinkedIn](https://img.shields.io/badge/-Guilherme_Maurila-blue?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/guilherme-maurila)  
+[![Gmail](https://img.shields.io/badge/-gfmaurila@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white)](mailto:gfmaurila@gmail.com)  
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCjy19AugQHIhyE0Nv558jcQ)
