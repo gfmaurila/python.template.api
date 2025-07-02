@@ -1,0 +1,41 @@
+
+# http://127.0.0.1:8081/docs
+# uvicorn Main:app --reload --port 8081
+
+
+
+Rodar o projeto
+
+    - > Pressione Ctrl+Shift+P
+    - > Digite Tasks: Run Task
+    - > Selecione Run FastAPI (Uvicorn)
+
+    ou 
+
+    - > Ctrl + Shift + B
+
+
+
+
+
+
+Inicie o debug com F5
+
+    - > Vá no menu "Run and Debug"
+
+    - > Clique em "Start Debugging" (F5)
+
+    - > Selecione o ambiente Python: FastAPI
+
+
+
+
+
+
+GIT
+
+    - git add .
+    - git commit -m "feat(tela-login): implementa tela de login"
+    - git push origin feature/usuarioX-tela-login
+
+
