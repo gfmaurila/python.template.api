@@ -20,3 +20,11 @@ def ping():
 
 
 
+from Extensions.Settings import settings
+
+print(settings.SQL_CONNECTION)
+print(settings.JWT_KEY)
+print(settings.RABBIT_HOST)
+print(settings.KAFKA_TOPIC)
+print(settings.API_AUTH_URL)
+
