@@ -6,12 +6,12 @@ from application.dtos.user_dto import UserDTO
 from domain.interfaces.user_repository import IUserRepository
 
 class CreateUserCommand:
-    def __init__(self, user_repository: IUserRepository):
-        self.user_repository = user_repository
+    def __init__(self, repository: IUserRepository):
+        self.repository = repository
 
-    async def handle(self, user_dto: UserDTO):
-        user = User(id=1, name=user_dto.name, email=user_dto.email)  # ID estático por enquanto
-        await self.user_repository.add(user)
+    async def handle(self, dto: UserDTO):
+        user = User(id=0, name=dto.name, email=dto.email)
+        await self.repository.add(user)
         return user
 
 

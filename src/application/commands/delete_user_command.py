@@ -1,15 +1,12 @@
 
-
-# src/application/queries/get_user_query.py
+# application/commands/delete_user_command.py
 
 from domain.interfaces.user_repository import IUserRepository
 
-class GetUserByIdQuery:
+class DeleteUserCommand:
     def __init__(self, repository: IUserRepository):
         self.repository = repository
 
     async def handle(self, user_id: int):
-        return await self.repository.get_by_id(user_id)
-
-
+        await self.repository.delete(user_id)
 
