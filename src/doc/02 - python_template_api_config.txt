@@ -1,0 +1,68 @@
+📁 Estrutura Inicial do Projeto – python.template.api
+Arquitetura: DDD + CQRS + Vertical Slices
+Framework: FastAPI
+Padrão inspirado em C#
+
+✅ Pré-requisitos
+- Python 3.11+
+- pip
+- virtualenv (recomendado)
+- Visual Studio Code com extensões:
+  - Python
+  - Pylance
+  - REST Client ou Thunder Client
+
+🚀 Passo a passo para criação do projeto
+
+1. Criar a pasta principal:
+mkdir python.template.api
+cd python.template.api
+
+2. Criar e ativar o ambiente virtual:
+python -m venv .venv
+# Ativação:
+# Windows:
+.venv\Scripts\activate
+# Linux/Mac:
+source .venv/bin/activate
+
+3. Instalar dependências principais:
+pip install fastapi uvicorn pydantic
+
+4. Criar estrutura de pastas:
+mkdir -p src/api
+mkdir -p src/application/commands
+mkdir -p src/application/queries
+mkdir -p src/application/dtos
+mkdir -p src/domain/entities
+mkdir -p src/domain/interfaces
+mkdir -p src/domain/enums
+mkdir -p src/infrastructure/repositories
+mkdir -p src/infrastructure/config
+mkdir -p src/shared
+
+5. Criar o arquivo principal da API:
+
+src/main.py
+-----------------
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "API Python Template com DDD, CQRS e Vertical Slices"}
+-----------------
+
+6. Rodar a API localmente:
+uvicorn src.main:app --reload
+
+uvicorn main:app --reload --port 8081
+
+
+Acesse: http://localhost:8001
+
+Acesse: http://127.0.0.1:8081/docs
+
+
+
