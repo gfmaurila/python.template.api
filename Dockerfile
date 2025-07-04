@@ -13,8 +13,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copia o restante do projeto para dentro do container
 COPY ./src ./src
 
+# Copia variáveis de ambiente específicas para Docker
+COPY ./src/core/env/.env.docker .env
+
 # Define variável de ambiente para o diretório da app
 ENV PYTHONPATH=/app/src
+ENV ENVIRONMENT=docker
 
 # Expõe a porta da API
 EXPOSE 8002
