@@ -1,20 +1,17 @@
 
-
 # docker-compose down
 # docker-compose up -d --build
 # docker-compose up --build
-
-
 
 version: "3.9"
 
 services:
 
-  python.template.api:
+  python_template_api:
     build: .
-    container_name: python.template.api
+    container_name: python_template_api
     ports:
-      - "8000:8000"
+      - "8002:8002"
     volumes:
       - .:/app
     depends_on:
@@ -39,6 +36,8 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=@Poc2Minimal@Api
+      - MSSQL_PID=Developer
+      - MSSQL_TCP_PORT=1433
     networks:
       - app-backend
     volumes:

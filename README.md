@@ -1,3 +1,4 @@
+
 # 📘 Documentação Técnica - Estrutura CQRS/DDD em Python
 
 ## 📖 Visão Geral
@@ -84,13 +85,13 @@ uvicorn main:app --reload --port 8081
 
 ## 🛠 Comandos Disponíveis
 
-| Operação       | Método | Rota             | Payload (exemplo)                    |
-|----------------|--------|------------------|--------------------------------------|
-| Create User    | POST   | `/users`         | `{ "Name": "Guilherme", "Email": "..." }` |
-| Get All Users  | GET    | `/users`         | —                                    |
-| Get User By Id | GET    | `/users/{id}`    | —                                    |
+| Operação       | Método | Rota             | Payload (exemplo)                          |
+|----------------|--------|------------------|--------------------------------------------|
+| Create User    | POST   | `/users`         | `{ "Name": "Guilherme", "Email": "..." }`  |
+| Get All Users  | GET    | `/users`         | —                                          |
+| Get User By Id | GET    | `/users/{id}`    | —                                          |
 | Update User    | PUT    | `/users/{id}`    | `{ "Name": "Novo Nome", "Email": "..." }` |
-| Delete User    | DELETE | `/users/{id}`    | —                                    |
+| Delete User    | DELETE | `/users/{id}`    | —                                          |
 
 ---
 
