@@ -1,6 +1,34 @@
-
 # http://127.0.0.1:8081/docs
 # uvicorn Main:app --reload --port 8081
+
+
+
+
+
+
+01 - Padrão de projeto - API
+02 - Startando o projeto 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

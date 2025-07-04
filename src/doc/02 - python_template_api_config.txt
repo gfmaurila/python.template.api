@@ -55,7 +55,7 @@ def read_root():
 -----------------
 
 6. Rodar a API localmente:
-uvicorn src.main:app --reload
+uvicorn main:app --reload
 
 uvicorn main:app --reload --port 8081
 
