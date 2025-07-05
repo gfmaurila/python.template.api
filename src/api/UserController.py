@@ -3,13 +3,13 @@
 
 
 from fastapi import APIRouter, HTTPException
-from application.dtos.UserDto import UserDto
+from application.User.dtos.UserDto import UserDto
 from infrastructure.repositories.UserRepositoryMemory import UserRepositoryMemory
-from application.commands.User.CreateUserCommand import CreateUserCommand
-from application.commands.User.UpdateUserCommand import UpdateUserCommand
-from application.commands.User.DeleteUserCommand import DeleteUserCommand
-from application.queries.User.GetUserByIdQuery import GetUserByIdQuery
-from application.queries.User.GetAllUsersQuery import GetAllUsersQuery
+from application.User.commands.CreateUserCommand import CreateUserCommand
+from application.User.commands.UpdateUserCommand import UpdateUserCommand
+from application.User.commands.DeleteUserCommand import DeleteUserCommand
+from application.User.queries.GetUserByIdQuery import GetUserByIdQuery
+from application.User.queries.GetAllUsersQuery import GetAllUsersQuery
 
 router = APIRouter()
 repository = UserRepositoryMemory()

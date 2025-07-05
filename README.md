@@ -18,39 +18,44 @@ python.template.api/
     ├── api/
     │   └── UserController.py
     ├── application/
-    │   ├── dtos/
-    │   │   └── UserDto.py
-    │   ├── commands/
-    │   │   ├── CreateUserCommand.py
-    │   │   ├── UpdateUserCommand.py
-    │   │   └── DeleteUserCommand.py
-    │   └── queries/
-    │       ├── GetUserByIdQuery.py
-    │       └── GetAllUsersQuery.py
+    │   └── User/
+    │       ├── commands/
+    │       │   ├── CreateUserCommand.py
+    │       │   ├── UpdateUserCommand.py
+    │       │   └── DeleteUserCommand.py
+    │       ├── dtos/
+    │       │   └── UserDto.py
+    │       └── queries/
+    │           ├── GetUserByIdQuery.py
+    │           └── GetAllUsersQuery.py
     ├── domain/
     │   ├── entities/
     │   │   └── User.py
     │   └── interfaces/
     │       └── IUserRepository.py
-    └── infrastructure/
-        └── repositories/
-            └── UserRepositoryMemory.py
+    ├── infrastructure/
+    │   └── repositories/
+    │       └── UserRepositoryMemory.py
+    └── core/
+        ├── Config.py
+        ├── openapi.py
+        └── Security.py
 ```
 
 ---
 
 ## 🔄 Equivalência com .NET
 
-| C# (.NET)                      | Python (FastAPI)                         |
-|-------------------------------|------------------------------------------|
-| `Startup.cs`, `Program.cs`    | `main.py`                                |
-| `Controllers`                 | `api/UserController.py`                  |
-| `DTOs`                        | `application/dtos/UserDto.py`            |
-| `Commands`                    | `application/commands/*.py`              |
-| `Queries`                     | `application/queries/*.py`               |
-| `Entities`                    | `domain/entities/*.py`                   |
-| `Interfaces` (IRepository)    | `domain/interfaces/IUserRepository.py`   |
-| `Repositories` (impl.)        | `infrastructure/repositories/*.py`       |
+| C# (.NET)                      | Python (FastAPI)                                 |
+|-------------------------------|--------------------------------------------------|
+| `Startup.cs`, `Program.cs`    | `main.py`                                        |
+| `Controllers`                 | `api/UserController.py`                          |
+| `DTOs`                        | `application/User/dtos/UserDto.py`               |
+| `Commands`                    | `application/User/commands/*.py`                 |
+| `Queries`                     | `application/User/queries/*.py`                  |
+| `Entities`                    | `domain/entities/User.py`                        |
+| `Interfaces` (IRepository)    | `domain/interfaces/IUserRepository.py`           |
+| `Repositories` (impl.)        | `infrastructure/repositories/UserRepositoryMemory.py` |
 
 ---
 

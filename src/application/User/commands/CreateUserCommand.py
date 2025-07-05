@@ -2,7 +2,7 @@
 # src/application/commands/create_user_command.py
 
 from domain.entities.User import User
-from application.dtos.UserDto import UserDto
+from application.User.dtos.UserDto import UserDto
 from domain.interfaces.IUserRepository import IUserRepository
 
 class CreateUserCommand:
