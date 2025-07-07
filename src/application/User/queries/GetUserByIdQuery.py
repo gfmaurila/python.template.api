@@ -1,6 +1,4 @@
-
-
-# src/application/queries/GetUserByIdQuery.py
+# src/application/User/queries/GetUserByIdQuery.py
 
 from domain.interfaces.IUserRepository import IUserRepository
 
@@ -10,7 +8,3 @@ class GetUserByIdQuery:
 
     async def Handle(self, userId: int):
         return await self._repository.GetById(userId)
-
-
-
-

@@ -1,7 +1,4 @@
-
-# application/queries/get_all_users_query.py
-
-
+# src/application/User/queries/GetAllUsersQuery.py
 
 from domain.interfaces.IUserRepository import IUserRepository
 
@@ -11,8 +8,3 @@ class GetAllUsersQuery:
 
     async def Handle(self):
         return await self._repository.GetAll()
-
-
-
-
-

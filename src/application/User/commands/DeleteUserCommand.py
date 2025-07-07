@@ -1,5 +1,4 @@
-
-# application/commands/DeleteUserCommand.py
+# src/application/User/commands/DeleteUserCommand.py
 
 from domain.interfaces.IUserRepository import IUserRepository
 
@@ -9,6 +8,3 @@ class DeleteUserCommand:
 
     async def Handle(self, userId: int):
         await self._repository.Delete(userId)
-
-
-
