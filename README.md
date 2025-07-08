@@ -22,40 +22,75 @@ python.template.api/
     │       ├── commands/
     │       │   ├── CreateUserCommand.py
     │       │   ├── UpdateUserCommand.py
-    │       │   └── DeleteUserCommand.py
+    │       │   ├── DeleteUserCommand.py
+    │       │   ├── Create/
+    │       │   │   └── Events/
+    │       │   │       └── Domain/Messaging/{Kafka,RabbitMQ,Redis}/...
+    │       │   ├── Delete/
+    │       │   │   └── Events/
+    │       │   │       └── Domain/Messaging/{Kafka,RabbitMQ,Redis}/...
+    │       │   ├── Update/
+    │       │   │   └── Events/
+    │       │   │       └── Domain/Messaging/{Kafka,RabbitMQ,Redis}/...
     │       ├── dtos/
     │       │   └── UserDto.py
+    │       ├── events/
+    │       │   ├── UserCreatedDomainEventHandler.py
+    │       │   ├── UserDeletedDomainEventHandler.py
+    │       │   └── UserUpdatedDomainEventHandler.py
     │       └── queries/
     │           ├── GetUserByIdQuery.py
     │           └── GetAllUsersQuery.py
+    ├── core/
+    │   ├── domain/
+    │   │   ├── entities/
+    │   │   │   └── BaseEntity.py
+    │   │   ├── interfaces/
+    │   │   │   └── IAggregateRoot.py
+    │   │   └── events/
+    │   │       └── Event.py
+    │   ├── Config.py
+    │   ├── Openapi.py
+    │   └── Security.py
     ├── domain/
     │   ├── entities/
-    │   │   └── User.py
-    │   └── interfaces/
-    │       └── IUserRepository.py
+    │   │   └── User/
+    │   │       ├── UserEntity.py
+    │   │       └── events/
+    │   │           ├── UserCreatedDomainEvent.py
+    │   │           ├── UserDeletedDomainEvent.py
+    │   │           ├── UserUpdatedDomainEvent.py
+    │   │           └── Messaging/{Kafka,RabbitMQ,Redis}/...
+    │   ├── enums/
+    │   │   ├── EGender.py
+    │   │   └── ENotificationType.py
+    │   ├── interfaces/
+    │   │   └── IUserRepository.py
+    │   └── valueobjects/
+    │       ├── Email.py
+    │       ├── PhoneNumber.py
+    │       └── ValueObject.py
     ├── infrastructure/
     │   └── repositories/
     │       └── UserRepositoryMemory.py
-    └── core/
-        ├── Config.py
-        ├── openapi.py
-        └── Security.py
 ```
 
 ---
 
 ## 🔄 Equivalência com .NET
 
-| C# (.NET)                      | Python (FastAPI)                                 |
-|-------------------------------|--------------------------------------------------|
-| `Startup.cs`, `Program.cs`    | `main.py`                                        |
-| `Controllers`                 | `api/UserController.py`                          |
-| `DTOs`                        | `application/User/dtos/UserDto.py`               |
-| `Commands`                    | `application/User/commands/*.py`                 |
-| `Queries`                     | `application/User/queries/*.py`                  |
-| `Entities`                    | `domain/entities/User.py`                        |
-| `Interfaces` (IRepository)    | `domain/interfaces/IUserRepository.py`           |
-| `Repositories` (impl.)        | `infrastructure/repositories/UserRepositoryMemory.py` |
+| C# (.NET)                      | Python (FastAPI)                                           |
+|-------------------------------|------------------------------------------------------------|
+| `Startup.cs`, `Program.cs`    | `main.py`                                                  |
+| `Controllers`                 | `api/UserController.py`                                    |
+| `DTOs`                        | `application/User/dtos/UserDto.py`                         |
+| `Commands`                    | `application/User/commands/*.py`                           |
+| `Queries`                     | `application/User/queries/*.py`                            |
+| `Entities`                    | `domain/entities/User/UserEntity.py`                       |
+| `Events`                      | `domain/entities/User/events/User*DomainEvent.py`          |
+| `Event Handlers`              | `application/User/events/User*DomainEventHandler.py`       |
+| `Interfaces` (IRepository)    | `domain/interfaces/IUserRepository.py`                     |
+| `Repositories` (impl.)        | `infrastructure/repositories/UserRepositoryMemory.py`      |
 
 ---
 
@@ -90,13 +125,23 @@ uvicorn main:app --reload --port 8081
 
 ## 🛠 Comandos Disponíveis
 
-| Operação       | Método | Rota             | Payload (exemplo)                          |
-|----------------|--------|------------------|--------------------------------------------|
-| Create User    | POST   | `/users`         | `{ "Name": "Guilherme", "Email": "..." }`  |
-| Get All Users  | GET    | `/users`         | —                                          |
-| Get User By Id | GET    | `/users/{id}`    | —                                          |
-| Update User    | PUT    | `/users/{id}`    | `{ "Name": "Novo Nome", "Email": "..." }` |
-| Delete User    | DELETE | `/users/{id}`    | —                                          |
+| Operação        | Método | Rota             | Payload (exemplo)                          |
+|-----------------|--------|------------------|--------------------------------------------|
+| Create User     | POST   | `/users`         | `{ "Name": "Guilherme", "Email": "..." }`  |
+| Get All Users   | GET    | `/users`         | —                                          |
+| Get User By Id  | GET    | `/users/{id}`    | —                                          |
+| Update User     | PUT    | `/users/{id}`    | `{ "Name": "Novo Nome", "Email": "..." }` |
+| Delete User     | DELETE | `/users/{id}`    | —                                          |
+
+---
+
+## 🧩 Eventos de Domínio
+
+- `UserCreatedDomainEvent`
+- `UserDeletedDomainEvent`
+- `UserUpdatedDomainEvent`
+
+Todos processados por seus respectivos handlers em `application/User/events`.
 
 ---
 
