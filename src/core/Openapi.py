@@ -4,6 +4,7 @@ def CustomOpenapi(app):
     if app.openapi_schema:
         return app.openapi_schema
 
+
     openapi_schema = get_openapi(
         title="API Exemple",
         version="v1",
