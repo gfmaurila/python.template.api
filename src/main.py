@@ -18,6 +18,17 @@ app.include_router(UserController.router)
 
 @app.on_event("startup")
 async def startup_event():
-    subscriber = RedisSubscriber(channel="user-created")
-    asyncio.create_task(subscriber.listen())
-    print("RedisSubscriber iniciado em background.")
+
+    # Inicia os dois subscribers
+    created_subscriber = RedisSubscriber(channel="user-created")
+    asyncio.create_task(created_subscriber.listen())
+    print("RedisSubscribers iniciados em background. - user-created")
+    
+    deleted_subscriber = RedisSubscriber(channel="user-deleted")
+    asyncio.create_task(deleted_subscriber.listen())
+    print("RedisSubscribers iniciados em background. - user-deleted")
+
+    updated_subscriber = RedisSubscriber(channel="user-updated")
+    asyncio.create_task(updated_subscriber.listen())
+    print("RedisSubscribers iniciados em background. - user-updated")
+    

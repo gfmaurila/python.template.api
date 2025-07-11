@@ -4,6 +4,7 @@ from fastapi import HTTPException
 from domain.interfaces.IUserRepository import IUserRepository
 from domain.entities.User.events.UserDeletedDomainEvent import UserDeletedDomainEvent
 from application.User.commands.Delete.Events.Domain.UserDeletedDomainEventHandler import UserDeletedDomainEventHandler
+from application.User.commands.Delete.Events.Messaging.Redis.UserDeletedRedisEventHandler import UserDeletedRedisEventHandler
 
 class DeleteUserCommand:
     def __init__(self, repository: IUserRepository):
@@ -25,6 +26,10 @@ class DeleteUserCommand:
         # Executar exclusão
         await self._repository.Delete(userId)
 
-        # Processar evento
+        # Processar eventos
         handler = UserDeletedDomainEventHandler()
         await handler.Handle(event)
+
+        # RedisPublisher
+        redisHandler = UserDeletedRedisEventHandler()
+        await redisHandler.Handle(event)
