@@ -1,4 +1,3 @@
-
 # 📘 Documentação Técnica - Estrutura CQRS/DDD em Python
 
 ## 📖 Visão Geral
@@ -144,14 +143,33 @@ uvicorn main:app --reload --port 8081
 Todos processados por seus respectivos handlers em `application/User/events`.
 
 
-## 🧩 Redis Pub/Sub
+## 🔔 Mensageria: Redis & RabbitMQ Pub/Sub
 
-- pip install redis==5.0.3
+Este projeto utiliza Redis e RabbitMQ como mecanismos de mensageria assíncrona para processamento de eventos de domínio.
 
+### Redis
 
----
+- Comunicação assíncrona via canais `user-created`, `user-updated`, `user-deleted`.
+- Subscribers iniciados automaticamente no startup (`lifespan`).
+- Dependência:
+  ```bash
+  pip install redis==5.0.3
+  ```
 
-## 👨‍💻 Autor
+### RabbitMQ
 
-**Guilherme Figueiras Maurila**  
-[LinkedIn](https://www.linkedin.com/in/guilherme-maurila) • [YouTube](https://www.youtube.com/channel/UCjy19AugQHIhyE0Nv558jcQ) • [Email](mailto:gfmaurila@gmail.com)
+- Utiliza `fanout exchange` com o nome configurável via `.env` (`RABBITMQ_EXCHANGE`).
+- Fila configurável via `.env` (`RABBITMQ_QUEUE`).
+- Publisher e Subscriber implementados em `infrastructure/messaging`.
+
+#### Exemplo `.env`:
+```env
+RABBITMQ_EXCHANGE=user-exchange
+RABBITMQ_QUEUE=user-created-queue
+```
+
+#### Dependência:
+```bash
+pip install pika==1.3.2
+```
+
