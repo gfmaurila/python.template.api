@@ -1,3 +1,4 @@
+from core.Config import GetSettings
 from domain.entities.User.UserEntity import UserEntity
 from application.User.dtos.UserDto import UserDto
 from domain.interfaces.IUserRepository import IUserRepository
@@ -5,6 +6,11 @@ from domain.valueobjects.Email import Email
 from domain.valueobjects.PhoneNumber import PhoneNumber
 from application.User.commands.Create.Events.Domain.UserCreatedDomainEventHandler import UserCreatedDomainEventHandler
 from application.User.commands.Create.Events.Messaging.Redis.UserCreatedRedisEventHandler import UserCreatedRedisEventHandler
+from application.User.commands.Create.Events.Messaging.RabbiMQ.UserCreatedRabbitMQEventHandler import UserCreatedRabbitMQEventHandler
+
+from infrastructure.messaging.RabbitMQPublisher import RabbitMQPublisher
+
+settings = GetSettings()
 
 class CreateUserCommand:
     def __init__(self, repository: IUserRepository):
@@ -33,6 +39,11 @@ class CreateUserCommand:
             # RedisPublisher
             redisHandler = UserCreatedRedisEventHandler()
             await redisHandler.Handle(event)
+
+            # RabbitMQPublisher
+            rabbitMQEventHandler = UserCreatedRabbitMQEventHandler()
+            await rabbitMQEventHandler.Handle(event)
+
 
         user.ClearDomainEvents()
 

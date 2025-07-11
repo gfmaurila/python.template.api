@@ -32,6 +32,22 @@ class Settings(BaseSettings):
     REDIS_DB: int = Field(default=0, alias="REDIS_DB")
     REDIS_PASSWORD: str = Field(default=None, alias="REDIS_PASSWORD")
 
+    RABBITMQ_HOST: str = Field(default="localhost", alias="RABBITMQ_HOST")
+    RABBITMQ_PORT: int = Field(default=5672, alias="RABBITMQ_PORT")
+    RABBITMQ_USER: str = Field(default="guest", alias="RABBITMQ_USER")
+    RABBITMQ_PASSWORD: str = Field(default="guest", alias="RABBITMQ_PASSWORD")
+    
+    # User
+    RABBITMQ_EXCHANGE: str = Field(default="user-exchange", alias="RABBITMQ_EXCHANGE")
+    RABBITMQ_QUEUE: str = Field(default="user-created-queue", alias="RABBITMQ_QUEUE")
+
+    RABBITMQ_EXCHANGE_USER: str = Field(default="user-exchange", alias="RABBITMQ_EXCHANGE_USER")
+    RABBITMQ_QUEUE_USER: str = Field(default="user-created-queue", alias="RABBITMQ_QUEUE_USER")
+
+    # Person
+    RABBITMQ_EXCHANGE_PERSON: str = Field(default="person-exchange", alias="RABBITMQ_EXCHANGE_PERSON")
+    RABBITMQ_QUEUE_PERSON: str = Field(default="person-created-queue", alias="RABBITMQ_QUEUE_PERSON")
+    
     class Config:
         populate_by_name = True  # necessário para acessar por atributo normal (REDIS_HOST)
 
