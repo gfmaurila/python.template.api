@@ -4,7 +4,7 @@ from domain.interfaces.IUserRepository import IUserRepository
 from domain.valueobjects.Email import Email
 from domain.valueobjects.PhoneNumber import PhoneNumber
 from domain.entities.User.events.UserUpdatedDomainEvent import UserUpdatedDomainEvent
-from application.User.commands.events.UserUpdatedDomainEventHandler import UserUpdatedDomainEventHandler
+from application.User.commands.Update.Events.Domain.UserUpdatedDomainEventHandler import UserUpdatedDomainEventHandler
 from fastapi import HTTPException
 
 class UpdateUserCommand:

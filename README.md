@@ -143,6 +143,12 @@ uvicorn main:app --reload --port 8081
 
 Todos processados por seus respectivos handlers em `application/User/events`.
 
+
+## 🧩 Redis Pub/Sub
+
+- pip install redis==5.0.3
+
+
 ---
 
 ## 👨‍💻 Autor

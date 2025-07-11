@@ -3,7 +3,8 @@ from application.User.dtos.UserDto import UserDto
 from domain.interfaces.IUserRepository import IUserRepository
 from domain.valueobjects.Email import Email
 from domain.valueobjects.PhoneNumber import PhoneNumber
-from application.User.commands.events.UserCreatedDomainEventHandler import UserCreatedDomainEventHandler
+from application.User.commands.Create.Events.Domain.UserCreatedDomainEventHandler import UserCreatedDomainEventHandler
+from application.User.commands.Create.Events.Messaging.Redis.UserCreatedRedisEventHandler import UserCreatedRedisEventHandler
 
 class CreateUserCommand:
     def __init__(self, repository: IUserRepository):
@@ -24,8 +25,14 @@ class CreateUserCommand:
 
         # Processa eventos de domínio
         for event in user.DomainEvents:
+
+            # Event de domain
             handler = UserCreatedDomainEventHandler()
             await handler.Handle(event)
+
+            # RedisPublisher
+            redisHandler = UserCreatedRedisEventHandler()
+            await redisHandler.Handle(event)
 
         user.ClearDomainEvents()
 

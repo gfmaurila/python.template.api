@@ -5,9 +5,9 @@
 from fastapi import APIRouter, HTTPException
 from application.User.dtos.UserDto import UserDto
 from infrastructure.repositories.UserRepositoryMemory import UserRepositoryMemory
-from application.User.commands.CreateUserCommand import CreateUserCommand
-from application.User.commands.UpdateUserCommand import UpdateUserCommand
-from application.User.commands.DeleteUserCommand import DeleteUserCommand
+from application.User.commands.Create.CreateUserCommand import CreateUserCommand
+from application.User.commands.Update.UpdateUserCommand import UpdateUserCommand
+from application.User.commands.Delete.Events.DeleteUserCommand import DeleteUserCommand
 from application.User.queries.GetUserByIdQuery import GetUserByIdQuery
 from application.User.queries.GetAllUsersQuery import GetAllUsersQuery
 

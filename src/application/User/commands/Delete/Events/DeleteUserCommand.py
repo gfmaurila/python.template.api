@@ -3,7 +3,7 @@
 from fastapi import HTTPException
 from domain.interfaces.IUserRepository import IUserRepository
 from domain.entities.User.events.UserDeletedDomainEvent import UserDeletedDomainEvent
-from application.User.commands.events.UserDeletedDomainEventHandler import UserDeletedDomainEventHandler
+from application.User.commands.Delete.Events.Domain.UserDeletedDomainEventHandler import UserDeletedDomainEventHandler
 
 class DeleteUserCommand:
     def __init__(self, repository: IUserRepository):
