@@ -161,6 +161,12 @@ Este projeto utiliza Redis e RabbitMQ como mecanismos de mensageria assíncrona 
 - Utiliza `fanout exchange` com o nome configurável via `.env` (`RABBITMQ_EXCHANGE`).
 - Fila configurável via `.env` (`RABBITMQ_QUEUE`).
 - Publisher e Subscriber implementados em `infrastructure/messaging`.
+- http://localhost:15672/#/
+
+
+### Kafka
+
+- http://localhost:9100/
 
 #### Exemplo `.env`:
 ```env
