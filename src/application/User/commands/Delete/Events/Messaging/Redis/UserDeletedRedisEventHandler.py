@@ -1,5 +1,5 @@
 from domain.entities.User.events.UserDeletedDomainEvent import UserDeletedDomainEvent
-from infrastructure.messaging.RedisPublisher import RedisPublisher
+from infrastructure.messaging.User.Pub.RedisPublisher import RedisPublisher
 
 class UserDeletedRedisEventHandler:
     def __init__(self):

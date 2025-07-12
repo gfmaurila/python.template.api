@@ -1,7 +1,7 @@
 # src/application/User/commands/Create/Events/Messaging/RabbitMQ/UserCreatedRabbitMQEventHandler.py
 
 from domain.entities.User.events.UserCreatedDomainEvent import UserCreatedDomainEvent
-from infrastructure.messaging.RabbitMQPublisher import RabbitMQPublisher
+from infrastructure.messaging.User.Pub.RabbitMQPublisher import RabbitMQPublisher
 
 class UserCreatedRabbitMQEventHandler:
     def __init__(self, logger=None):

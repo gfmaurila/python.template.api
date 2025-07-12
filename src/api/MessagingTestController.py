@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from infrastructure.messaging.RedisPublisher import RedisPublisher
-from infrastructure.messaging.RabbitMQPublisher import RabbitMQPublisher
-from infrastructure.messaging.KafkaPublisher import KafkaPublisher
+from infrastructure.messaging.User.Pub.RedisPublisher import RedisPublisher
+from infrastructure.messaging.User.Pub.RabbitMQPublisher import RabbitMQPublisher
+from infrastructure.messaging.User.Pub.KafkaPublisher import KafkaPublisher
 
 router = APIRouter(prefix="/test-messaging", tags=["Messaging Test"])
 

@@ -1,3 +1,4 @@
+
 # 📘 Documentação Técnica - Estrutura CQRS/DDD em Python
 
 ## 📖 Visão Geral
@@ -15,7 +16,8 @@ python.template.api/
 └── src/
     ├── main.py
     ├── api/
-    │   └── UserController.py
+    │   ├── UserController.py
+    │   └── MessagingTestController.py
     ├── application/
     │   └── User/
     │       ├── commands/
@@ -70,6 +72,15 @@ python.template.api/
     │       ├── PhoneNumber.py
     │       └── ValueObject.py
     ├── infrastructure/
+    │   ├── messaging/
+    │   │   ├── RedisSubscriber.py
+    │   │   ├── RabbitSubscriber.py
+    │   │   ├── KafkaSubscriber.py
+    │   │   └── User/
+    │   │       └── Pub/
+    │   │           ├── RedisPublisher.py
+    │   │           ├── RabbitMQPublisher.py
+    │   │           └── KafkaPublisher.py
     │   └── repositories/
     │       └── UserRepositoryMemory.py
 ```
@@ -140,17 +151,20 @@ uvicorn main:app --reload --port 8081
 - `UserDeletedDomainEvent`
 - `UserUpdatedDomainEvent`
 
-Todos processados por seus respectivos handlers em `application/User/events`.
+Todos processados por seus respectivos handlers em `application/User/commands/*/Events/Domain`.
 
+---
 
-## 🔔 Mensageria: Redis & RabbitMQ Pub/Sub
+## 🔔 Mensageria: Redis, RabbitMQ & Kafka Pub/Sub
 
-Este projeto utiliza Redis e RabbitMQ como mecanismos de mensageria assíncrona para processamento de eventos de domínio.
+Este projeto utiliza Redis, RabbitMQ e Kafka como mecanismos de mensageria assíncrona para processamento de eventos.
 
 ### Redis
 
 - Comunicação assíncrona via canais `user-created`, `user-updated`, `user-deleted`.
-- Subscribers iniciados automaticamente no startup (`lifespan`).
+- Subscribers iniciados automaticamente no `lifespan` (`RedisSubscriber`).
+- Publisher em: `infrastructure/messaging/User/Pub/RedisPublisher.py`
+- Subscriber em: `infrastructure/messaging/RedisSubscriber.py`
 - Dependência:
   ```bash
   pip install redis==5.0.3
@@ -158,25 +172,59 @@ Este projeto utiliza Redis e RabbitMQ como mecanismos de mensageria assíncrona 
 
 ### RabbitMQ
 
-- Utiliza `fanout exchange` com o nome configurável via `.env` (`RABBITMQ_EXCHANGE`).
-- Fila configurável via `.env` (`RABBITMQ_QUEUE`).
-- Publisher e Subscriber implementados em `infrastructure/messaging`.
+- Utiliza `fanout exchange` com nome configurável via `.env`.
+- Publisher em: `infrastructure/messaging/User/Pub/RabbitMQPublisher.py`
+- Subscriber em: `infrastructure/messaging/RabbitSubscriber.py`
 - http://localhost:15672/#/
-
-#### Dependência:
-```bash
-pip install pika==1.3.2
-```
+- Dependência:
+  ```bash
+  pip install pika==1.3.2
+  ```
 
 ### Kafka
-- pip install kafka-python
-- http://localhost:9100/
 
-#### Exemplo `.env`:
+- Tópico configurável via `.env`.
+- Publisher em: `infrastructure/messaging/User/Pub/KafkaPublisher.py`
+- Subscriber em: `infrastructure/messaging/KafkaSubscriber.py`
+- UI para teste: http://localhost:9100/
+- Dependência:
+  ```bash
+  pip install kafka-python
+  ```
+
+#### Exemplo de configuração no `.env.development`:
 ```env
+# RabbitMQ
 RABBITMQ_EXCHANGE=user-exchange
 RABBITMQ_QUEUE=user-created-queue
+
+# Kafka
+KAFKA_BOOTSTRAP_SERVERS=localhost:29092
+KAFKA_TOPIC=user-topic
+KAFKA_GROUP_ID=user-group
 ```
 
+---
+
+## 🧪 Controller de Testes de Mensageria
+
+O arquivo `MessagingTestController.py` expõe endpoints de teste para envio de mensagens via cada mecanismo:
+
+| Tipo       | Método | Rota                       |
+|------------|--------|----------------------------|
+| Redis      | POST   | `/test-messaging/redis`    |
+| RabbitMQ   | POST   | `/test-messaging/rabbitmq` |
+| Kafka      | POST   | `/test-messaging/kafka`    |
+
+Cada rota envia um payload de exemplo para o canal correspondente.
 
 
+## Autor
+
+- Guilherme Figueiras Maurila
+ 
+## 📫 Como me encontrar
+- [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCjy19AugQHIhyE0Nv558jcQ)
+- [![Linkedin Badge](https://img.shields.io/badge/-Guilherme_Figueiras_Maurila-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/guilherme-maurila)](https://www.linkedin.com/in/guilherme-maurila)
+- [![Gmail Badge](https://img.shields.io/badge/-gfmaurila@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:gfmaurila@gmail.com)](mailto:gfmaurila@gmail.com)
+- 📧 Email: gfmaurila@gmail.com

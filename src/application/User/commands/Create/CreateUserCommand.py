@@ -10,7 +10,7 @@ from application.User.commands.Create.Events.Messaging.RabbiMQ.UserCreatedRabbit
 
 from application.User.commands.Create.Events.Messaging.Kafka.UserCreatedKafkaEventHandler import UserCreatedKafkaEventHandler
 
-from infrastructure.messaging.RabbitMQPublisher import RabbitMQPublisher
+from infrastructure.messaging.User.Pub.RabbitMQPublisher import RabbitMQPublisher
 
 settings = GetSettings()
 

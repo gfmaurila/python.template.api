@@ -1,5 +1,5 @@
 from domain.entities.User.events.UserCreatedDomainEvent import UserCreatedDomainEvent
-from infrastructure.messaging.RedisPublisher import RedisPublisher
+from infrastructure.messaging.User.Pub.RedisPublisher import RedisPublisher
 
 class UserCreatedRedisEventHandler:
     def __init__(self, logger=None):

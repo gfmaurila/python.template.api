@@ -1,6 +1,6 @@
 # src/application/User/commands/Create/Events/Messaging/Kafka/UserCreatedKafkaEventHandler.py
 
-from infrastructure.messaging.KafkaPublisher import KafkaPublisher
+from infrastructure.messaging.User.Pub.KafkaPublisher import KafkaPublisher
 
 class UserCreatedKafkaEventHandler:
     async def Handle(self, event):

@@ -4,10 +4,10 @@ from contextlib import asynccontextmanager
 
 from api import MessagingTestController, UserController
 from core.Openapi import CustomOpenapi
-from infrastructure.messaging.RedisSubscriber import RedisSubscriber
-from infrastructure.messaging.RabbitSubscriber import RabbitMQSubscriber
+from infrastructure.messaging.User.Sub.RedisSubscriber import RedisSubscriber
+from infrastructure.messaging.User.Sub.RabbitSubscriber import RabbitMQSubscriber
 
-from infrastructure.messaging.KafkaSubscriber import start_kafka_subscriber
+from infrastructure.messaging.User.Sub.KafkaSubscriber import start_kafka_subscriber
 
 from core.Config import GetSettings
 settings = GetSettings()
