@@ -1,4 +1,3 @@
-
 # 📘 Documentação Técnica - Estrutura CQRS/DDD em Python
 
 ## 📖 Visão Geral
@@ -219,6 +218,53 @@ O arquivo `MessagingTestController.py` expõe endpoints de teste para envio de m
 Cada rota envia um payload de exemplo para o canal correspondente.
 
 
+---
+
+## ⚙️ Serviço Worker (Mensageria)
+
+Este projeto possui um serviço de **Worker assíncrono** separado da API, responsável por escutar mensagens de eventos nas filas do Redis, RabbitMQ e Kafka.
+
+O arquivo principal do worker é:
+
+```bash
+src/worker/main.py
+```
+
+Este worker roda os `Subscribers` que escutam os canais/filas configuradas para:
+
+- Redis: `user-created`, `user-deleted`, `user-updated`
+- RabbitMQ: fila configurável via `.env`
+- Kafka: tópico configurável via `.env`
+
+### 🐳 Executando com Docker
+
+Você pode subir a API e o Worker juntos com:
+
+```bash
+docker-compose up --build
+```
+
+Ou apenas o worker:
+
+```bash
+docker-compose run --rm worker
+```
+
+O comando que o container `worker` executa é:
+
+```dockerfile
+command: python src/worker/main.py
+```
+
+---
+
+## 🧠 Observação
+
+A API e o Worker compartilham o mesmo `Dockerfile` e `requirements.txt`, garantindo ambiente unificado e reduzindo duplicidade de configuração.
+
+---
+
+
 ## Autor
 
 - Guilherme Figueiras Maurila
@@ -228,3 +274,4 @@ Cada rota envia um payload de exemplo para o canal correspondente.
 - [![Linkedin Badge](https://img.shields.io/badge/-Guilherme_Figueiras_Maurila-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/guilherme-maurila)](https://www.linkedin.com/in/guilherme-maurila)
 - [![Gmail Badge](https://img.shields.io/badge/-gfmaurila@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:gfmaurila@gmail.com)](mailto:gfmaurila@gmail.com)
 - 📧 Email: gfmaurila@gmail.com
+

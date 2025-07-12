@@ -23,6 +23,23 @@ services:
     networks:
       - app-backend
 
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: python_worker
+    command: python src/worker/main.py
+    volumes:
+      - .:/app
+    depends_on:
+      - sqlserver
+      - redis
+      - mongoserver
+      - rabbitmq
+      - kafka1
+    networks:
+      - app-backend  
+
   sqlserver:
     image: mcr.microsoft.com/azure-sql-edge:latest
     cap_add: [ 'SYS_PTRACE' ]
