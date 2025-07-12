@@ -1,0 +1,7 @@
+
+
+cd src
+python -m worker.main
+
+
+
