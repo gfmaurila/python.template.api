@@ -2,10 +2,12 @@ import asyncio
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
-from api import UserController
+from api import MessagingTestController, UserController
 from core.Openapi import CustomOpenapi
 from infrastructure.messaging.RedisSubscriber import RedisSubscriber
 from infrastructure.messaging.RabbitSubscriber import RabbitMQSubscriber
+
+from infrastructure.messaging.KafkaSubscriber import start_kafka_subscriber
 
 from core.Config import GetSettings
 settings = GetSettings()
@@ -24,6 +26,13 @@ async def lifespan(app: FastAPI):
     )
     print("RabbitMQSubscriber iniciado em background.")
 
+    # Kafka Subscriber
+    asyncio.get_event_loop().run_in_executor(
+        None,
+        lambda: start_kafka_subscriber()
+    )
+    print("KafkaSubscriber iniciado em background.")
+
     yield
 
     # Optional shutdown logic aqui (se necessário)
@@ -36,3 +45,4 @@ def read_root():
     return {"message": "API Python Template com DDD, CQRS e Vertical Slices"}
 
 app.include_router(UserController.router)
+app.include_router(MessagingTestController.router)

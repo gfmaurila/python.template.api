@@ -47,6 +47,13 @@ class Settings(BaseSettings):
     # Person
     RABBITMQ_EXCHANGE_PERSON: str = Field(default="person-exchange", alias="RABBITMQ_EXCHANGE_PERSON")
     RABBITMQ_QUEUE_PERSON: str = Field(default="person-created-queue", alias="RABBITMQ_QUEUE_PERSON")
+
+
+    # Kafka
+    KAFKA_BOOTSTRAP_SERVERS: str = Field(default="localhost:9092", alias="KAFKA_BOOTSTRAP_SERVERS")
+    KAFKA_TOPIC: str = Field(default="user-topic", alias="KAFKA_TOPIC")
+    KAFKA_GROUP_ID: str = Field(default="user-group", alias="KAFKA_GROUP_ID")
+
     
     class Config:
         populate_by_name = True  # necessário para acessar por atributo normal (REDIS_HOST)

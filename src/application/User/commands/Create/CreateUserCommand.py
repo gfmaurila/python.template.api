@@ -8,6 +8,8 @@ from application.User.commands.Create.Events.Domain.UserCreatedDomainEventHandle
 from application.User.commands.Create.Events.Messaging.Redis.UserCreatedRedisEventHandler import UserCreatedRedisEventHandler
 from application.User.commands.Create.Events.Messaging.RabbiMQ.UserCreatedRabbitMQEventHandler import UserCreatedRabbitMQEventHandler
 
+from application.User.commands.Create.Events.Messaging.Kafka.UserCreatedKafkaEventHandler import UserCreatedKafkaEventHandler
+
 from infrastructure.messaging.RabbitMQPublisher import RabbitMQPublisher
 
 settings = GetSettings()
@@ -43,6 +45,11 @@ class CreateUserCommand:
             # RabbitMQPublisher
             rabbitMQEventHandler = UserCreatedRabbitMQEventHandler()
             await rabbitMQEventHandler.Handle(event)
+
+            # KafkaPublisher
+            kafkaEventHandler = UserCreatedKafkaEventHandler()
+            await kafkaEventHandler.Handle(event)
+
 
 
         user.ClearDomainEvents()

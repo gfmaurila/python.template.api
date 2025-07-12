@@ -163,9 +163,13 @@ Este projeto utiliza Redis e RabbitMQ como mecanismos de mensageria assíncrona 
 - Publisher e Subscriber implementados em `infrastructure/messaging`.
 - http://localhost:15672/#/
 
+#### Dependência:
+```bash
+pip install pika==1.3.2
+```
 
 ### Kafka
-
+- pip install kafka-python
 - http://localhost:9100/
 
 #### Exemplo `.env`:
@@ -174,8 +178,5 @@ RABBITMQ_EXCHANGE=user-exchange
 RABBITMQ_QUEUE=user-created-queue
 ```
 
-#### Dependência:
-```bash
-pip install pika==1.3.2
-```
+
 
