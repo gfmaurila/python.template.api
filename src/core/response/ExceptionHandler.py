@@ -2,7 +2,7 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
-from core.response.api_result import ApiResult, ErrorDetail
+from core.response.ApiResult import ApiResult, ErrorDetail
 
 # Traduções (como você já fez)
 TRADUCOES_ERROS = {

@@ -1,0 +1,17 @@
+{
+  "configurations": [
+    {
+      "name": "FastAPI",
+      "type": "python",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "main:app",
+        "--reload",
+        "--port", "8081",
+        "--app-dir", "src"
+      ],
+      "jinja": true
+    }
+  ]
+}

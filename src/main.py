@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from api import MessagingTestController, UserController
 from core.Openapi import CustomOpenapi
 from fastapi.exceptions import RequestValidationError
-from core.response.exception_handler import validation_exception_handler
+from core.response.ExceptionHandler import validation_exception_handler
 
 app = FastAPI()
 app.openapi = lambda: CustomOpenapi(app)
@@ -16,3 +16,6 @@ app.include_router(MessagingTestController.router)
 
 # Registrar handler global para erros de validação
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
+
+import sys
+print(sys.path)
