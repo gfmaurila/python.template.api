@@ -144,6 +144,59 @@ uvicorn main:app --reload --port 8081
 
 ---
 
+✅ Validação de Dados e Retornos Padronizados
+
+A API implementa um **tratamento global de erros** com tradução das mensagens do `Pydantic` para **português** e retorno padronizado com a classe `ApiResult`.
+
+🛡 Validação de senha
+
+A senha deve atender aos seguintes critérios:
+
+- Pelo menos **1 caractere especial**
+- Pelo menos **1 letra maiúscula**
+- Pelo menos **1 letra minúscula**
+- Pelo menos **1 número**
+- ❌ Não pode conter **números em sequência crescente** (ex: 123)
+- ❌ Não pode conter **letras em sequência crescente** (ex: abc)
+
+📄 Exemplo de erro traduzido
+
+```json
+{
+  "success": false,
+  "status_code": 422,
+  "errors": [
+    {
+      "message": "O valor deve conter pelo menos 8 caracteres."
+    }
+  ],
+  "data": null
+}
+```
+
+📘 Retorno padronizado
+
+Todas as respostas seguem o padrão:
+
+```json
+{
+  "success": true,
+  "success_message": "Usuário criado com sucesso!",
+  "status_code": 200,
+  "errors": [],
+  "data": {
+    "id": 123
+  }
+}
+```
+
+- Implementado por meio das classes `ApiResult` e `ErrorDetail` (`core/response/ApiResult.py`)
+- Erros de validação são interceptados por `ExceptionHandler.py`
+- Baseado no estilo de resposta das APIs REST em C#
+
+
+---
+
 ## 🧩 Eventos de Domínio
 
 - `UserCreatedDomainEvent`
