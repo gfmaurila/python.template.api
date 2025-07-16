@@ -14,6 +14,10 @@ def seed_users():
     ]
 
     with Session(engine) as session:
-        session.bulk_save_objects(users)
-        session.commit()
-        print("Usuários de teste inseridos com sucesso.")
+        existing = session.query(UserModel).first()
+        if not existing:
+            session.bulk_save_objects(users)
+            session.commit()
+            print("Usuários de teste inseridos com sucesso.")
+        else:
+            print("Usuários já existem. Seed ignorado.")
