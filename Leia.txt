@@ -1,10 +1,11 @@
 # http://127.0.0.1:8081/docs
-# uvicorn Main:app --reload --port 8081
+
+- pip install uvicorn
+- pip install fastapi
+- uvicorn --version
+
+
 # uvicorn main:app --reload --port 8081 --app-dir src
-# uvicorn main:app --reload --port 8081 --app-dir src
-
-
-
 
 
 
