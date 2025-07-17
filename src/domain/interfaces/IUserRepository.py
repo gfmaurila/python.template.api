@@ -1,6 +1,6 @@
 # src/domain/interfaces/IUserRepository.py
 
-from typing import List
+from typing import List, Optional
 from domain.entities.User.UserEntity import UserEntity
 
 class IUserRepository:
@@ -12,8 +12,8 @@ class IUserRepository:
         """Retorna todos os usuários."""
         raise NotImplementedError
 
-    async def GetById(self, userId: int) -> UserEntity:
-        """Retorna um usuário pelo ID."""
+    async def GetById(self, userId: int) -> Optional[UserEntity]:
+        """Retorna um usuário pelo ID, ou None se não encontrado."""
         raise NotImplementedError
 
     async def Update(self, userId: int, user: UserEntity) -> None:
@@ -22,4 +22,8 @@ class IUserRepository:
 
     async def Delete(self, userId: int) -> None:
         """Remove um usuário pelo ID."""
+        raise NotImplementedError
+
+    async def Exists(self, userId: int) -> bool:
+        """Verifica se o usuário existe pelo ID."""
         raise NotImplementedError

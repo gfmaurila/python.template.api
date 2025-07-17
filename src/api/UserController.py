@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 from application.User.dtos.UserDto import UserDto
-from infrastructure.repositories.UserRepositoryMemory import UserRepositoryMemory
+from infrastructure.repositories.UserRepository import UserRepository  
 from application.User.commands.Create.CreateUserCommand import CreateUserCommand
 from application.User.commands.Update.UpdateUserCommand import UpdateUserCommand
 from application.User.commands.Delete.Events.DeleteUserCommand import DeleteUserCommand
@@ -9,7 +9,7 @@ from application.User.queries.GetAllUsersQuery import GetAllUsersQuery
 from core.response.Responses import ApiResult, ErrorDetail
 
 router = APIRouter()
-repository = UserRepositoryMemory()
+repository = UserRepository()  # <-- Ajustado
 
 @router.post("/users", response_model=ApiResult[dict])
 async def CreateUser(dto: UserDto):
