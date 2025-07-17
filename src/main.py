@@ -28,3 +28,8 @@ app.include_router(UserController.router)
 app.include_router(MessagingTestController.router)
 
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="127.0.0.1", port=8081, reload=False)

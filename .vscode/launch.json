@@ -2,21 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "FastAPI (Uvicorn)",
+      "name": "FastAPI (Direct Debug)",
       "type": "debugpy",
       "request": "launch",
-      "module": "uvicorn",
-      "args": [
-        "main:app",
-        "--reload",
-        "--port",
-        "8081",
-        "--app-dir",
-        "src"
-      ],
-      "jinja": true,
-      "justMyCode": true,
-      "console": "integratedTerminal"
+      "program": "${workspaceFolder}/src/main.py",
+      "args": [],
+      "console": "integratedTerminal",
+      "justMyCode": false
     }
   ]
 }
