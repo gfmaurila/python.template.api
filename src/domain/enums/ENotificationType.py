@@ -1,17 +1,24 @@
-from enum import Enum
+# src/domain/enums/ENotificationType.py
 
-class ENotificationType(Enum):
+from enum import IntEnum
+
+class ENotificationType(IntEnum):
     """
     Represents the types of notifications available.
     """
 
-    SMS = (0, "Notification via SMS")
-    Email = (1, "Notification via email")
-    WhatsApp = (2, "Notification via WhatsApp")
+    SMS = 0
+    Email = 1
+    WhatsApp = 2
 
-    def __init__(self, value: int, description: str):
-        self._value_ = value
-        self.description = description
+    def description(self) -> str:
+        descriptions = {
+            ENotificationType.SMS: "Notification via SMS",
+            ENotificationType.Email: "Notification via email",
+            ENotificationType.WhatsApp: "Notification via WhatsApp",
+        }
+        return descriptions.get(self, "Unknown")
 
     def __str__(self):
-        return self.description
+        return self.description()
+

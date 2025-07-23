@@ -1,17 +1,23 @@
-from enum import Enum
+# src/domain/enums/EGender.py
 
-class EGender(Enum):
+from enum import IntEnum
+
+class EGender(IntEnum):
     """
     Represents the gender options.
     """
-    
-    None_ = (0, "Não informar")
-    Male = (1, "Male")
-    Female = (2, "Female")
 
-    def __init__(self, value: int, description: str):
-        self._value_ = value
-        self.description = description
+    None_ = 0
+    Male = 1
+    Female = 2
+
+    def description(self) -> str:
+        descriptions = {
+            EGender.None_: "Não informar",
+            EGender.Male: "Male",
+            EGender.Female: "Female",
+        }
+        return descriptions.get(self, "Unknown")
 
     def __str__(self):
-        return self.description
+        return self.description()

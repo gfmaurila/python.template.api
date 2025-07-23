@@ -1,12 +1,15 @@
+# src/infrastructure/service/RedisCacheService.py
+
 import json
 import redis.asyncio as redis
-from typing import Optional, Callable, List, TypeVar, Generic
+from typing import Optional, Callable, List, TypeVar, Generic, Awaitable
 from datetime import timedelta
 
 from core.domain.model.CacheOptions import CacheOptions
 from core.domain.interfaces.IRedisCacheService import IRedisCacheService
 
 T = TypeVar("T")
+
 
 class RedisCacheService(IRedisCacheService[T], Generic[T]):
     def __init__(self, cacheOptions: CacheOptions, redisUrl: str):
@@ -34,13 +37,13 @@ class RedisCacheService(IRedisCacheService[T], Generic[T]):
         valueStr = json.dumps(value)
         return await redisConn.rpush(listKey, valueStr)
 
-    async def GetOrCreateAsync(self, key: str, createItem: Callable[[], T], expiry: Optional[timedelta] = None) -> T:
+    async def GetOrCreateAsync(self, key: str, createItem: Callable[[], Awaitable[T]], expiry: Optional[timedelta] = None) -> T:
         redisConn = await self._GetRedis()
         valueStr = await redisConn.get(key)
         if valueStr:
             return json.loads(valueStr)
 
-        item = createItem()
+        item = await createItem()  # <- await corretamente o retorno da função async
         await self.SetAsync(key, item, expiry)
         return item
 
@@ -66,3 +69,4 @@ class RedisCacheService(IRedisCacheService[T], Generic[T]):
     async def ClearDatabaseAsync(self) -> None:
         redisConn = await self._GetRedis()
         await redisConn.flushdb()
+

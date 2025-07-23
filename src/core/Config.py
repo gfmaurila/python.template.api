@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     REDIS_HOST: str = Field(default="localhost", alias="REDIS_HOST")
     REDIS_PORT: int = Field(default=6379, alias="REDIS_PORT")
     REDIS_DB: int = Field(default=0, alias="REDIS_DB")
+    REDIS_DB_USER: int = Field(default=1, alias="REDIS_DB_USER")
     REDIS_PASSWORD: str = Field(default="", alias="REDIS_PASSWORD")
 
     RABBITMQ_HOST: str = Field(default="localhost", alias="RABBITMQ_HOST")
