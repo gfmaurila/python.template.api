@@ -23,9 +23,6 @@ class DeleteUserCommand:
             email=user.Email.address
         )
 
-        # Executar exclusão
-        await self._repository.Delete(userId)
-
         # Processar eventos
         handler = UserDeletedDomainEventHandler()
         await handler.Handle(event)
@@ -33,3 +30,8 @@ class DeleteUserCommand:
         # RedisPublisher
         redisHandler = UserDeletedRedisEventHandler()
         await redisHandler.Handle(event)
+
+        # Executar exclusão
+        await self._repository.Delete(userId)
+
+        
