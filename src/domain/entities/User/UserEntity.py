@@ -2,6 +2,7 @@
 
 from core.domain.entities.BaseEntity import BaseEntity
 from core.domain.interfaces.IAggregateRoot import IAggregateRoot
+from core.util.Password import Password
 from domain.valueobjects.Email import Email
 from domain.valueobjects.PhoneNumber import PhoneNumber
 from domain.enums.ENotificationType import ENotificationType
@@ -23,7 +24,7 @@ class UserEntity(BaseEntity, IAggregateRoot):
         self.Id = Id
         self.Name = Name
         self.Email = Email
-        self.Senha = Senha
+        self.Senha = Password.ComputeSha256Hash(Senha)
         self.Phone = Phone
         self.Notification = Notification
         self.Gender = Gender
@@ -31,8 +32,8 @@ class UserEntity(BaseEntity, IAggregateRoot):
         self.AddDomainEvent(UserCreatedDomainEvent(
             Id=self.Id,
             Name=self.Name,
-            Email=self.Email.address,  # <- CORRIGIDO
-            Phone=self.Phone.phone,    # <- se necessário
+            Email=self.Email.address,
+            Phone=self.Phone.phone,
             Notification=self.Notification,
             Gender=self.Gender
         ))
