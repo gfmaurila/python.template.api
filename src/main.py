@@ -9,6 +9,8 @@ from core.response.ExceptionHandler import validation_exception_handler
 from core.Database import create_database_if_not_exists, create_all_tables_if_not_exists
 from infrastructure.database.seeds.SeedUsers import seed_users
 
+from api import RedisPostController
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_database_if_not_exists()
@@ -26,6 +28,7 @@ def read_root():
 
 app.include_router(UserController.router)
 app.include_router(MessagingTestController.router)
+app.include_router(RedisPostController.router)
 
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 

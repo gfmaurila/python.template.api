@@ -45,7 +45,7 @@ async def GetUser(userId: int):
                 [ErrorDetail(message="Usuário não encontrado.")],
                 status.HTTP_404_NOT_FOUND
             )
-        return ApiResult.create_success(user)
+        return ApiResult.create_success(user.model_dump())
     except Exception as ex:
         return ApiResult.create_error(
             [ErrorDetail(message=str(ex))],
