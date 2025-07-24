@@ -11,6 +11,7 @@ from infrastructure.database.seeds.SeedUsers import seed_users
 
 from api import RedisPostController
 from api import LogController
+from api import MessageController
 
 from fastapi import FastAPI
 from infrastructure.logging.MongoLogger import ConfigureLogging
@@ -34,6 +35,8 @@ app.include_router(UserController.router)
 app.include_router(MessagingTestController.router)
 app.include_router(RedisPostController.router)
 app.include_router(LogController.router)
+app.include_router(MessageController.router)
+
 
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 
