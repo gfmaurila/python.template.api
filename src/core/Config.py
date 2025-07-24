@@ -5,6 +5,9 @@ from pydantic import Field
 import os
 import pathlib
 
+from pydantic import BaseModel
+from functools import lru_cache
+
 # Base path absoluto
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
 
@@ -61,11 +64,15 @@ class Settings(BaseSettings):
     SQLSERVER_USER: str = Field(..., alias="SQLSERVER_USER")
     SQLSERVER_PASSWORD: str = Field(..., alias="SQLSERVER_PASSWORD")
 
+    MONGO_LOG_CONN: str = Field(..., alias="MONGO_LOG_CONN")
+    MONGO_LOG_DB: str = Field(..., alias="MONGO_LOG_DB")
+    MONGO_LOG_COLLECTION: str = Field(..., alias="MONGO_LOG_COLLECTION")
+
     class Config:
         populate_by_name = True
         extra = "forbid"
 
-@lru_cache
+@lru_cache()
 def GetSettings():
-    return Settings(_env_file=str(ENV_MAP.get(ENVIRONMENT, BASE_DIR / "core/env/.env.development")))
+    return Settings()
 

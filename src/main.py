@@ -11,6 +11,9 @@ from infrastructure.database.seeds.SeedUsers import seed_users
 
 from api import RedisPostController
 
+from fastapi import FastAPI
+from infrastructure.logging.MongoLogger import ConfigureLogging
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_database_if_not_exists()
@@ -32,7 +35,13 @@ app.include_router(RedisPostController.router)
 
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 
+ConfigureLogging()
 
+@app.get("/")
+def read_root():
+    from loguru import logger
+    logger.info("Endpoint raiz acessado.")
+    return {"message": "API Python Template com logging em MongoDB"}
 
 # Debug
 if __name__ == "__main__":
