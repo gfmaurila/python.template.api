@@ -1,8 +1,6 @@
 # src/application/User/events/UserCreatedDomainEventHandler.py
 
-from datetime import timedelta
 from domain.entities.User.events.UserCreatedDomainEvent import UserCreatedDomainEvent
-from application.User.queries.GetAllUsersQuery import GetAllUsersQuery
 from domain.interfaces.IUserRepository import IUserRepository
 from core.domain.interfaces.IRedisCacheService import IRedisCacheService
 from infrastructure.repositories.UserRepository import UserRepository
@@ -13,18 +11,13 @@ from application.User.dtos.UserQueryModel import UserQueryModel
 
 import logging
 
-
 class UserCreatedDomainEventHandler:
     def __init__(self):
         settings = GetSettings()
 
-        # Logger padrão
         self._logger = logging.getLogger("UserCreatedDomainEventHandler")
-
-        # Repositório
         self._repository: IUserRepository = UserRepository()
-
-        # Cache Redis com parâmetros completos
+        
         cacheOptions = CacheOptions(
             DbIndex=settings.REDIS_DB,
             AbsoluteExpirationInHours=2,
@@ -39,31 +32,21 @@ class UserCreatedDomainEventHandler:
 
     async def Handle(self, event: UserCreatedDomainEvent):
         cacheKey = "GetAllUsersQuery"
-
         self._logger.info(f"[EVENT] UserCreatedDomainEvent triggered for: {event.Name} ({event.Email})")
 
-        # Limpa cache
-        await self._cacheService.DeleteAsync(cacheKey)
+        try:
+            
+            # Atualiza lista completa no cache
+            await self._cacheService.DeleteAsync(cacheKey)
 
-        # Recria cache com a lista atualizada de usuários
-        query = GetAllUsersQuery(self._repository)
+            # Busca todos os usuários atualizados do banco
+            users = await self._repository.GetAll()
 
-        async def load_users():
-            users = await query.Handle()
-            return [UserQueryModel.from_entity(u).model_dump() for u in users]  # <- serializável
-        
-        # await self._cacheService.GetOrCreateAsync(
-        #     cacheKey,
-        #     load_users,
-        #     expiry=timedelta(hours=2)
-        # )
+            # Transforma todos em modelos serializáveis
+            serialized_users = [UserQueryModel.from_entity(u).model_dump() for u in users]
 
-        await self._cacheService.GetOrCreateAsync(
-            cacheKey,
-            load_users,
-            expiry=None  # <- cache eterno (ou até ser removido manualmente)
-        )
+            # Atualiza o cache com a lista completa
+            await self._cacheService.SetAsync(cacheKey, serialized_users)
 
-
-
-
+        except Exception as ex:
+            self._logger.error(f"[ERROR] Falha ao atualizar o cache: {ex}")

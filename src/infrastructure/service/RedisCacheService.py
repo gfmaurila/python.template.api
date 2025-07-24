@@ -64,7 +64,14 @@ class RedisCacheService(IRedisCacheService[T], Generic[T]):
 
     async def DeleteAsync(self, key: str) -> bool:
         redisConn = await self._GetRedis()
-        return await redisConn.delete(key) > 0
+        deleted_count = await redisConn.delete(key)
+
+        if deleted_count > 0:
+            print(f"[RedisCacheService] Chave '{key}' deletada com sucesso.")
+        else:
+            print(f"[RedisCacheService] Chave '{key}' não encontrada para deletar.")
+
+        return deleted_count > 0
 
     async def ClearDatabaseAsync(self) -> None:
         redisConn = await self._GetRedis()
