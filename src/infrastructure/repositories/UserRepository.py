@@ -10,6 +10,7 @@ from domain.valueobjects.PhoneNumber import PhoneNumber
 from domain.enums.ENotificationType import ENotificationType
 from domain.enums.EGender import EGender
 from core.Database import SessionLocal
+from core.util.Password import Password
 
 class UserRepository(IUserRepository):
     def __init__(self):
@@ -74,3 +75,25 @@ class UserRepository(IUserRepository):
         if row:
             self._db.delete(row)
             self._db.commit()
+
+    async def GetAuthByEmailPassword(self, email: str, password: str) -> Optional[UserEntity]:
+        hashed_password = Password.ComputeSha256Hash(password)
+        row = self._db.query(UserModel).filter(
+            UserModel.Email == email,
+            UserModel.Senha == hashed_password
+        ).first()
+
+        if not row:
+            return None
+
+        return UserEntity(
+            Id=row.Id,
+            Name=row.Name,
+            Email=Email(row.Email),
+            Senha=row.Senha,
+            Phone=PhoneNumber(row.Phone),
+            Notification=ENotificationType(row.Notification),
+            Gender=EGender(row.Gender)
+        )
+    
+    

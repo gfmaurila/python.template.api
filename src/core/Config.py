@@ -41,6 +41,8 @@ class Settings(BaseSettings):
     REDIS_DB_USER_DELETE: int = Field(default=2, alias="REDIS_DB_USER_DELETE")
     REDIS_PASSWORD: str = Field(default="", alias="REDIS_PASSWORD")
 
+    REDIS_DB_AUTH: int = Field(default=4, alias="REDIS_DB_AUTH")
+
     RABBITMQ_HOST: str = Field(default="localhost", alias="RABBITMQ_HOST")
     RABBITMQ_PORT: int = Field(default=5672, alias="RABBITMQ_PORT")
     RABBITMQ_USER: str = Field(default="guest", alias="RABBITMQ_USER")

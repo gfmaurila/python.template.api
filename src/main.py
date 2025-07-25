@@ -13,6 +13,7 @@ from api import RedisPostController
 from api import LogController
 from api import MessageController
 from api.GithubController import router as GithubRouter
+from api.AuthController import router as AuthRouter
 
 from fastapi import FastAPI
 from infrastructure.logging.MongoLogger import ConfigureLogging
@@ -32,7 +33,7 @@ app.openapi = lambda: CustomOpenapi(app)
 def read_root():
     return {"message": "API Python Template com DDD, CQRS e Vertical Slices"}
     
-
+app.include_router(AuthRouter)
 app.include_router(UserController.router)
 app.include_router(MessagingTestController.router)
 app.include_router(RedisPostController.router)
