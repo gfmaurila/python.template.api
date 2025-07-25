@@ -1,3 +1,4 @@
+from fastapi import HTTPException, status
 from core.Config import GetSettings
 from domain.entities.User.UserEntity import UserEntity
 from application.User.dtos.UserDto import UserDto
@@ -19,6 +20,15 @@ class CreateUserCommand:
         self._repository = repository
 
     async def Handle(self, dto: UserDto) -> UserEntity:
+
+        # Verifica se o e-mail já está em uso
+        existing_user = await self._repository.GetByEmail(dto.Email)
+        if existing_user is not None:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="E-mail já está em uso."
+            )
+
         user = UserEntity(
             Id=0,
             Name=dto.Name,

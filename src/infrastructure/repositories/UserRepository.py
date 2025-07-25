@@ -96,4 +96,23 @@ class UserRepository(IUserRepository):
             Gender=EGender(row.Gender)
         )
     
+    async def GetByEmail(self, email: str) -> Optional[UserEntity]:
+        row = self._db.query(UserModel).filter(UserModel.Email == email).first()
+        if not row:
+            return None
+
+        return UserEntity(
+            Id=row.Id,
+            Name=row.Name,
+            Email=Email(row.Email),
+            Senha=row.Senha,
+            Phone=PhoneNumber(row.Phone),
+            Notification=ENotificationType(row.Notification),
+            Gender=EGender(row.Gender)
+        )
+    
+    async def Exists(self, userId: int) -> bool:
+        exists = self._db.query(UserModel).filter(UserModel.Id == userId).first()
+        return exists is not None
+    
     

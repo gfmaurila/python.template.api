@@ -1,29 +1,38 @@
 # src/domain/interfaces/IUserRepository.py
 
+from abc import ABC, abstractmethod
 from typing import List, Optional
 from domain.entities.User.UserEntity import UserEntity
 
-class IUserRepository:
+class IUserRepository(ABC):
+    @abstractmethod
     async def Add(self, user: UserEntity) -> None:
-        """Adiciona um novo usuário ao repositório."""
-        raise NotImplementedError
+        ...
 
+    @abstractmethod
     async def GetAll(self) -> List[UserEntity]:
-        """Retorna todos os usuários."""
-        raise NotImplementedError
+        ...
 
+    @abstractmethod
     async def GetById(self, userId: int) -> Optional[UserEntity]:
-        """Retorna um usuário pelo ID, ou None se não encontrado."""
-        raise NotImplementedError
+        ...
 
+    @abstractmethod
     async def Update(self, userId: int, user: UserEntity) -> None:
-        """Atualiza um usuário existente."""
-        raise NotImplementedError
+        ...
 
+    @abstractmethod
     async def Delete(self, userId: int) -> None:
-        """Remove um usuário pelo ID."""
-        raise NotImplementedError
+        ...
 
+    @abstractmethod
     async def Exists(self, userId: int) -> bool:
-        """Verifica se o usuário existe pelo ID."""
-        raise NotImplementedError
+        ...
+
+    @abstractmethod
+    async def GetByEmail(self, email: str) -> Optional[UserEntity]:
+        ...
+
+    @abstractmethod
+    async def Exists(self, userId: int) -> bool:
+        ...
