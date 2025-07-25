@@ -9,15 +9,17 @@ from fastapi import HTTPException
 
 class UpdateUserCommand:
     def __init__(self, repository: IUserRepository):
-        self._repository = repository
+        self.repository = repository
 
     async def Handle(self, userId: int, dto: UserDto) -> None:
-        # Verifica se o usuário existe
-        existing_user = await self._repository.GetById(userId)
-        if not existing_user:
+        existingUser = await self.repository.GetById(userId)
+        if not existingUser:
             raise HTTPException(status_code=404, detail="User not found")
 
-        # Cria o novo objeto UserEntity
+        userWithEmail = await self.repository.GetByEmail(dto.Email)
+        if userWithEmail and userWithEmail.Id != userId:
+            raise HTTPException(status_code=400, detail="Email already in use by another user")
+
         user = UserEntity(
             Id=userId,
             Name=dto.Name,
@@ -28,10 +30,8 @@ class UpdateUserCommand:
             Gender=dto.Gender
         )
 
-        # Atualiza no repositório
-        await self._repository.Update(userId, user)
+        await self.repository.Update(userId, user)
 
-        # Gera evento de domínio
         event = UserUpdatedDomainEvent(
             userId=user.Id,
             name=user.Name,
@@ -41,6 +41,5 @@ class UpdateUserCommand:
             gender=user.Gender
         )
 
-        # Processa evento
         handler = UserUpdatedDomainEventHandler()
         await handler.Handle(event)
