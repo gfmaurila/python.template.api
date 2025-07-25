@@ -68,6 +68,11 @@ class Settings(BaseSettings):
     MONGO_LOG_DB: str = Field(..., alias="MONGO_LOG_DB")
     MONGO_LOG_COLLECTION: str = Field(..., alias="MONGO_LOG_COLLECTION")
 
+    GITHUB_USERNAME: str = Field(..., alias="GITHUB_USERNAME")
+    GITHUB_API_URL: str = Field(..., alias="GITHUB_API_URL")
+    GITHUB_TOKEN: str = Field(default="", alias="GITHUB_TOKEN")
+
+
     class Config:
         populate_by_name = True
         extra = "forbid"
