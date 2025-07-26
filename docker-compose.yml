@@ -21,6 +21,8 @@ services:
       - mongoserver
       - rabbitmq
       - kafka1
+      - oracle
+      - oracle-db
     networks:
       - app-backend
 
@@ -38,6 +40,8 @@ services:
       - mongoserver
       - rabbitmq
       - kafka1
+      - oracle
+      - oracle-db
     networks:
       - app-backend  
 
@@ -60,6 +64,74 @@ services:
       - app-backend
     volumes:
       - sql_data:/var/opt/mssql
+
+  # -----------------------------------------------------------------------
+  # https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
+
+  # docker run -d -p 49161:1521 -p 8080:8080 oracleinanutshell/oracle-xe-11g
+
+  # Login http://localhost:8080/apex/apex_admin with following credential:
+  # username: ADMIN
+  # password: admin
+  # password: !G18u03i1986
+
+  # DBEaver
+  # hostname: localhost
+  # port: 49161
+  # sid: xe
+  # username: system
+  # password: oracle
+
+  # .NET Core 
+  # Install-Package Oracle.ManagedDataAccess.Core
+  # using Oracle.ManagedDataAccess.Client;
+  # "DefaultConnection": "User Id=system;Password=oracle;Data Source=//localhost:1521/xe;"
+
+  oracle:
+    image: oracleinanutshell/oracle-xe-11g:latest
+    container_name: oracle
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    environment:
+      - ORACLE_ALLOW_REMOTE=true
+      - ORACLE_DISABLE_ASYNCH_IO=true
+      - ORACLE_USER=system
+      - ORACLE_PASSWORD=oracle
+      - ORACLE_DATABASE=xe
+    restart: always
+    networks:
+      - app-backend
+
+  oracle-db:
+    image: oracleinanutshell/oracle-xe-11g
+    container_name: oracle_db
+    ports:
+      - "49161:1521"
+      - "8080:8080"
+    environment:
+      - ORACLE_ALLOW_REMOTE=true
+      - ORACLE_DISABLE_ASYNCH_IO=true
+    restart: always
+    networks:
+      - app-backend
+
+  # BEGIN MKT -------------------------------------------------------------- 
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: Poc2Minimal@Api
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Poc2Minimal@Api
+      MYSQL_DATABASE: Teste
+    restart: always
+    expose:
+      - 3306
+    ports:
+      - "3306:3306"
+    networks:
+      - app-backend
 
   redis:
     image: redis:latest
