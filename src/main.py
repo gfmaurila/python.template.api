@@ -18,6 +18,7 @@ from api import LogController
 from api import MessageController
 from api.GithubController import router as GithubRouter
 from api.AuthController import router as AuthRouter
+from api.RegionController import router as RegionRouter
 
 
 from fastapi import FastAPI
@@ -45,6 +46,7 @@ app.include_router(RedisPostController.router)
 app.include_router(LogController.router)
 app.include_router(MessageController.router)
 app.include_router(GithubRouter)
+app.include_router(RegionRouter)
 
 
 app.add_exception_handler(RequestValidationError, validation_exception_handler)

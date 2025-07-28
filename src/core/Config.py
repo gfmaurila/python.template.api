@@ -80,6 +80,8 @@ class Settings(BaseSettings):
     ORACLE_SID: str = Field(..., alias="ORACLE_SID")
     ORACLE_USER: str = Field(..., alias="ORACLE_USER")
     ORACLE_PASSWORD: str = Field(..., alias="ORACLE_PASSWORD")
+    ORACLE_CLIENT_LIB_DIR: str = Field(..., alias="ORACLE_CLIENT_LIB_DIR")
+    ORACLE_LIB_DIR: str = Field(..., alias="ORACLE_LIB_DIR")
 
 
     class Config:
