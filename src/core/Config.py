@@ -83,6 +83,13 @@ class Settings(BaseSettings):
     ORACLE_CLIENT_LIB_DIR: str = Field(..., alias="ORACLE_CLIENT_LIB_DIR")
     ORACLE_LIB_DIR: str = Field(..., alias="ORACLE_LIB_DIR")
 
+    # MySQL
+    MYSQL_HOST: str = Field(..., alias="MYSQL_HOST")
+    MYSQL_PORT: int = Field(..., alias="MYSQL_PORT")
+    MYSQL_DATABASE: str = Field(..., alias="MYSQL_DATABASE")
+    MYSQL_USER: str = Field(..., alias="MYSQL_USER")
+    MYSQL_PASSWORD: str = Field(..., alias="MYSQL_PASSWORD")
+
 
     class Config:
         populate_by_name = True

@@ -8,7 +8,7 @@ from application.Region.commands.DeleteRegionCommand import DeleteRegionCommand
 from application.Region.queries.GetAllRegionsQuery import GetAllRegionsQuery
 from application.Region.queries.GetRegionByIdQuery import GetRegionByIdQuery
 
-router = APIRouter(prefix="/regions", tags=["Regions"])
+router = APIRouter(prefix="/regions", tags=["Regions Oracle"])
 repository = RegionOracleRepository()
 
 @router.get("/", response_model=List[RegionDto])

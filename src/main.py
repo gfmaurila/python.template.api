@@ -19,6 +19,7 @@ from api import MessageController
 from api.GithubController import router as GithubRouter
 from api.AuthController import router as AuthRouter
 from api.RegionController import router as RegionRouter
+from api.RegionMySQLController import router as RegionMySQL
 
 
 from fastapi import FastAPI
@@ -47,6 +48,7 @@ app.include_router(LogController.router)
 app.include_router(MessageController.router)
 app.include_router(GithubRouter)
 app.include_router(RegionRouter)
+app.include_router(RegionMySQL)
 
 
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
