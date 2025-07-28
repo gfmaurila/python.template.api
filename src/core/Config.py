@@ -74,6 +74,13 @@ class Settings(BaseSettings):
     GITHUB_API_URL: str = Field(..., alias="GITHUB_API_URL")
     GITHUB_TOKEN: str = Field(default="", alias="GITHUB_TOKEN")
 
+    # Oracle
+    ORACLE_HOST: str = Field(..., alias="ORACLE_HOST")
+    ORACLE_PORT: int = Field(..., alias="ORACLE_PORT")
+    ORACLE_SID: str = Field(..., alias="ORACLE_SID")
+    ORACLE_USER: str = Field(..., alias="ORACLE_USER")
+    ORACLE_PASSWORD: str = Field(..., alias="ORACLE_PASSWORD")
+
 
     class Config:
         populate_by_name = True
