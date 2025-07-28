@@ -11,6 +11,7 @@ services:
   python_template_api:
     build: .
     container_name: python_template_api
+    restart: always
     ports:
       - "8002:8002"
     volumes:
@@ -32,6 +33,7 @@ services:
       dockerfile: Dockerfile
     container_name: python_worker
     command: python src/worker/main.py
+    restart: always
     volumes:
       - .:/app
     depends_on:
