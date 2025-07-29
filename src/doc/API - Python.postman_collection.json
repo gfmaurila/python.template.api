@@ -110,6 +110,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -149,7 +154,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MDU4IiwiZW1haWwiOiJnZm1hdXJpbGFAZ21haWwuY29tIiwicm9sZXMiOlsiVVNFUiJdLCJleHAiOjE3NTM0NTE5OTQsImlhdCI6MTc1MzQ1MTA5NH0.JkeamvMBd23aJ_VL_aJb4-eoonX-9ALDw2wQo5uk3n0"
+								"value": "Bearer {{access_token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -193,7 +198,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MDU4IiwiZW1haWwiOiJnZm1hdXJpbGFAZ21haWwuY29tIiwicm9sZXMiOlsiVVNFUiJdLCJleHAiOjE3NTM0NTE5OTQsImlhdCI6MTc1MzQ1MTA5NH0.JkeamvMBd23aJ_VL_aJb4-eoonX-9ALDw2wQo5uk3n0"
+								"value": "Bearer {{access_token}}"
 							}
 						],
 						"url": {
@@ -225,7 +230,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MDU4IiwiZW1haWwiOiJnZm1hdXJpbGFAZ21haWwuY29tIiwicm9sZXMiOlsiVVNFUiJdLCJleHAiOjE3NTM0NTE5OTQsImlhdCI6MTc1MzQ1MTA5NH0.JkeamvMBd23aJ_VL_aJb4-eoonX-9ALDw2wQo5uk3n0"
+								"value": "Bearer {{access_token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -234,7 +239,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"Name\": \"João da Silva teste testada\",\n  \"Email\": \"joao@email.com\",\n  \"Senha\": \"@G18u03i1986\",\n  \"Phone\": \"11999999999\",\n  \"Notification\": 2,\n  \"Gender\": 2\n}",
+							"raw": "{\n  \"Name\": \"Guilherme F Maurila\",\n  \"Email\": \"gfmaurilas@gmail.com\",\n  \"Senha\": \"@G18u03i1986\",\n  \"Phone\": \"11999999999\",\n  \"Notification\": 1,\n  \"Gender\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -242,7 +247,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8081/users/5062",
+							"raw": "http://127.0.0.1:8081/users/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -253,7 +258,7 @@
 							"port": "8081",
 							"path": [
 								"users",
-								"5062"
+								"1"
 							]
 						}
 					},
@@ -270,7 +275,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MDU4IiwiZW1haWwiOiJnZm1hdXJpbGFAZ21haWwuY29tIiwicm9sZXMiOlsiVVNFUiJdLCJleHAiOjE3NTM0NTYzMTgsImlhdCI6MTc1MzQ1NTQxOH0.KQCGsCLsSOMw8nEiiARJnkNTZARErCeZubp1axivBsM"
+								"value": "Bearer {{access_token}}"
 							}
 						],
 						"url": {
@@ -301,7 +306,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MDU4IiwiZW1haWwiOiJnZm1hdXJpbGFAZ21haWwuY29tIiwicm9sZXMiOlsiVVNFUiJdLCJleHAiOjE3NTM0NTE5OTQsImlhdCI6MTc1MzQ1MTA5NH0.JkeamvMBd23aJ_VL_aJb4-eoonX-9ALDw2wQo5uk3n0"
+								"value": "Bearer {{access_token}}"
 							}
 						],
 						"url": {
@@ -317,6 +322,57 @@
 							"path": [
 								"users",
 								"5062"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "paged",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8081/users/paged?name=guilherme&page=1&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"paged"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "guilherme"
+								},
+								{
+									"key": "email",
+									"value": "teste@email.com",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
 							]
 						}
 					},
@@ -925,7 +981,85 @@
 			"name": "Auth",
 			"item": [
 				{
+					"name": "Login - Docker",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"access_token\", jsonData.AccessToken);\r",
+									"pm.environment.set(\"refresh_token\", jsonData.RefreshToken);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Email\": \"gfmaurila@gmail.com\",\n  \"Password\": \"@G18u03i1986\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8002/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"access_token\", jsonData.AccessToken);\r",
+									"pm.environment.set(\"refresh_token\", jsonData.RefreshToken);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1046,6 +1180,353 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Outros Bancos",
+			"item": [
+				{
+					"name": "Oracle",
+					"item": [
+						{
+							"name": "GET All",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8081/regions/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8081",
+									"path": [
+										"regions",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8081/regions/0",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8081",
+									"path": [
+										"regions",
+										"0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"RegionId\": 0,\n  \"RegionName\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8081/regions/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8081",
+									"path": [
+										"regions",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"RegionId\": 0,\n  \"RegionName\": \"string1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8081/regions/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8081",
+									"path": [
+										"regions",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8081/regions/0",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8081",
+									"path": [
+										"regions",
+										"0"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "MySQL",
+					"item": [
+						{
+							"name": "GET All",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8081/regionsMySQL/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8081",
+									"path": [
+										"regionsMySQL",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8081/regionsMySQL/0",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8081",
+									"path": [
+										"regionsMySQL",
+										"0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"RegionId\": 0,\n  \"RegionName\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8081/regionsMySQL/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8081",
+									"path": [
+										"regionsMySQL",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"RegionId\": 0,\n  \"RegionName\": \"string1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8081/regionsMySQL/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8081",
+									"path": [
+										"regionsMySQL",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8081/regionsMySQL/0",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8081",
+									"path": [
+										"regionsMySQL",
+										"0"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

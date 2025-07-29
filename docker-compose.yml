@@ -16,7 +16,12 @@ services:
       - "8002:8002"
     volumes:
       - .:/app
+    env_file:
+      - ./src/core/env/.env.docker
+    environment:
+      - ENVIRONMENT=docker
     depends_on:
+      - mysql
       - sqlserver
       - redis
       - mongoserver
@@ -36,7 +41,12 @@ services:
     restart: always
     volumes:
       - .:/app
+    env_file:
+      - ./src/core/env/.env.docker
+    environment:
+      - ENVIRONMENT=docker
     depends_on:
+      - mysql
       - sqlserver
       - redis
       - mongoserver
@@ -45,7 +55,8 @@ services:
       - oracle
       - oracle-db
     networks:
-      - app-backend  
+      - app-backend
+  
 
   sqlserver:
     image: mcr.microsoft.com/azure-sql-edge:latest
